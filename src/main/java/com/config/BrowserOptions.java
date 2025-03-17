@@ -1,4 +1,4 @@
-package com.saucedemo.drivers;
+package com.config;
 
 public class BrowserOptions {
     private final boolean headless;
