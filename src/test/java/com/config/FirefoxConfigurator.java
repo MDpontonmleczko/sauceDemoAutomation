@@ -8,7 +8,15 @@ public class FirefoxConfigurator implements BrowserConfigurator {
     public FirefoxOptions configure(BrowserOptions browserOptions) {
         FirefoxOptions options = new FirefoxOptions();
 
-        BrowserOptionsUtil.applyCommonOptions(options, browserOptions);
+        if (browserOptions.isHeadless()) {
+            options.addArguments("--headless");
+        }
+        if (browserOptions.isIncognito()) {
+            options.addArguments("-private");
+        }
+        if (browserOptions.isMaximized()) {
+            options.addArguments("--start-maximized");
+        }
 
         return options;
     }
