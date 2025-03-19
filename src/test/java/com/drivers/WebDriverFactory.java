@@ -11,7 +11,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 public class WebDriverFactory {
 
     public static WebDriver createDriver(Browser browser, BrowserOptions options) {
-
         BrowserConfigurator configurator = getConfigurator(browser);
         MutableCapabilities capabilities = configurator.configure(options);
 
