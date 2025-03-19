@@ -24,9 +24,9 @@ public class BrowserOptions {
     }
 
     public static class Builder {
-        private boolean headless = true;
-        private boolean incognito = true;
-        private boolean maximized = true;
+        private boolean headless = false;
+        private boolean incognito = false;
+        private boolean maximized = false;
 
         public Builder headless(boolean value) {
             this.headless = value;
