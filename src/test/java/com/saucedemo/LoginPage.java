@@ -16,8 +16,8 @@ public class LoginPage extends AbstractPage{
 
     @FindBy(xpath = "//input[@id='login-button']")
     private WebElement loginButtonLocator;
-
-    @FindBy(xpath = "//h3[contains(text(), 'Username is required')]")
+    //h3[contains(text(), 'Username is required')]
+    @FindBy(xpath = "//h3[@data-test='error']")
     private WebElement errorMessageLocator;
 
     public LoginPage(WebDriver driver) {
