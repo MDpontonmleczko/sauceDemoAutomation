@@ -3,16 +3,23 @@ package com.test;
 import com.model.User;
 import com.saucedemo.LoginPage;
 import com.service.UserCreator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestLoginPage extends CommonConditions{
 
+    private static final Logger logger = LogManager.getLogger(TestLoginPage.class);
+
     @Test()
     public void shouldReturnErrorMessageWhenLoginCredentialsAreEmpty() {
+        logger.info("Test shouldReturnErrorMessageWhenLoginCredentialsAreEmpty started");
+
         //given
         User user = UserCreator.withCredentialsFromProperty();
         String expectedErrorMessage = "Username is required";
@@ -28,12 +35,19 @@ public class TestLoginPage extends CommonConditions{
 
         //then
         String actualErrorMessage = loginPage.getErrorMessage();
+        logger.info("Error message for shouldReturnErrorMessageWhenLoginCredentialsAreEmpty received: {}",
+                actualErrorMessage);
+
         assertTrue(actualErrorMessage.contains(expectedErrorMessage),
                 "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
+
+        logger.info("Test shouldReturnErrorMessageWhenLoginCredentialsAreEmpty completed");
     }
 
     @Test()
     public void shouldReturnErrorMessageWhenPasswordIsEmpty() {
+        logger.info("Test shouldReturnErrorMessageWhenPasswordIsEmpty started");
+
         //given
         User user = UserCreator.withCredentialsFromProperty();
         String expectedErrorMessage = "Password is required";
@@ -48,15 +62,24 @@ public class TestLoginPage extends CommonConditions{
 
         //then
         String actualErrorMessage = loginPage.getErrorMessage();
+        logger.info("Error message for shouldReturnErrorMessageWhenPasswordIsEmpty received: {}",
+                actualErrorMessage);
+
         assertTrue(actualErrorMessage.contains(expectedErrorMessage),
                 "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
+        logger.info("Test shouldReturnErrorMessageWhenPasswordIsEmpty completed");
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/valid_login_credentials.csv", numLinesToSkip = 1)
     public void shouldLoginSuccessfullyWhenProvidedWithValidCredentials(String username, String password) {
+        logger.info("Test shouldLoginSuccessfullyWhenProvidedWithValidCredentials started");
+
         //given
         User user = new User(username, password);
+        logger.info("Test shouldLoginSuccessfullyWhenProvidedWithValidCredentials using username: {}, password: {}",
+                user.username(), user.password());
+
         String expectedTitle = "Swag Labs";
 
         //when
@@ -70,10 +93,15 @@ public class TestLoginPage extends CommonConditions{
         //then
         assertEquals(actualTitle, expectedTitle,
                 "Expected: '" + expectedTitle +  "' Instead got: '" + actualTitle + "'");
+        logger.info("Test shouldLoginSuccessfullyWhenProvidedWithValidCredentials for username: {}, password: {} completed",
+                user.username(), user.password());
     }
 
     @Test()
     public void shouldReturnErrorMessageWhenProvidedWithLockeUser() {
+        logger.info("Test shouldReturnErrorMessageWhenProvidedWithLockeUser started");
+
+        //given
         User user = UserCreator.withLockedCredentials();
         String expectedErrorMessage = "Sorry, this user has been locked out.";
         LoginPage loginPage = new LoginPage(driver);
@@ -86,8 +114,12 @@ public class TestLoginPage extends CommonConditions{
 
         //then
         String actualErrorMessage = loginPage.getErrorMessage();
+        logger.info("Error message for shouldReturnErrorMessageWhenProvidedWithLockeUser received: {}",
+                actualErrorMessage);
+
         assertTrue(actualErrorMessage.contains(expectedErrorMessage),
                 "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
+        logger.info("Test shouldReturnErrorMessageWhenProvidedWithLockeUser completed");
     }
 
 }
