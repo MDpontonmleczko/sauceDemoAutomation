@@ -7,13 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestLoginPage extends CommonConditions{
 
     @Test()
-    public void shouldReturnErrorMessageWhenLoginCredentialsAreDeleted() {
+    public void shouldReturnErrorMessageWhenLoginCredentialsAreEmpty() {
         //given
         User user = UserCreator.withCredentialsFromProperty();
         String expectedErrorMessage = "Username is required";
@@ -24,6 +23,26 @@ public class TestLoginPage extends CommonConditions{
                 .setUsername(user.username())
                 .setPassword(user.password())
                 .clearUsername()
+                .clearPassword()
+                .clickLoginButton();
+
+        //then
+        String actualErrorMessage = loginPage.getErrorMessage();
+        assertTrue(actualErrorMessage.contains(expectedErrorMessage),
+                "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
+    }
+
+    @Test()
+    public void shouldReturnErrorMessageWhenPasswordIsEmpty() {
+        //given
+        User user = UserCreator.withCredentialsFromProperty();
+        String expectedErrorMessage = "Password is required";
+        LoginPage loginPage = new LoginPage(driver);
+
+        //when
+        loginPage.open()
+                .setUsername(user.username())
+                .setPassword(user.password())
                 .clearPassword()
                 .clickLoginButton();
 
@@ -51,6 +70,24 @@ public class TestLoginPage extends CommonConditions{
         //then
         assertEquals(actualTitle, expectedTitle,
                 "Expected: '" + expectedTitle +  "' Instead got: '" + actualTitle + "'");
+    }
+
+    @Test()
+    public void shouldReturnErrorMessageWhenProvidedWithLockeUser() {
+        User user = UserCreator.withLockedCredentials();
+        String expectedErrorMessage = "Sorry, this user has been locked out.";
+        LoginPage loginPage = new LoginPage(driver);
+
+        //when
+        loginPage.open()
+                .setUsername(user.username())
+                .setPassword(user.password())
+                .clickLoginButton();
+
+        //then
+        String actualErrorMessage = loginPage.getErrorMessage();
+        assertTrue(actualErrorMessage.contains(expectedErrorMessage),
+                "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
     }
 
 }
