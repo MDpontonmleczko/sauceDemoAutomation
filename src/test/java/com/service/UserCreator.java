@@ -9,4 +9,8 @@ public class UserCreator {
     public static User withCredentialsFromProperty() {
         return new User(USER_NAME, USER_PASSWORD);
     }
+
+    public static User withLockedCredentials() {
+        return new User("locked_out_user", "secret_sauce");
+    }
 }
