@@ -10,12 +10,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public abstract class AbstractPage extends CommonConditions {
-    protected static WebDriver driver;
+    protected WebDriver driver;
     protected final Duration timeout = Duration.ofSeconds(10);
     protected final WebDriverWait wait = new WebDriverWait(driver, timeout);
 
     protected AbstractPage(WebDriver driver) {
-        AbstractPage.driver = driver;
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
