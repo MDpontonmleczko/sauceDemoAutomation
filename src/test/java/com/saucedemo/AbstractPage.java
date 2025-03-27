@@ -1,6 +1,5 @@
 package com.saucedemo;
 
-import com.test.CommonConditions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -9,13 +8,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public abstract class AbstractPage extends CommonConditions {
+public abstract class AbstractPage {
     protected WebDriver driver;
     protected final Duration timeout = Duration.ofSeconds(10);
-    protected final WebDriverWait wait = new WebDriverWait(driver, timeout);
+    protected final WebDriverWait wait;
 
     protected AbstractPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, timeout);
         PageFactory.initElements(driver, this);
     }
 
