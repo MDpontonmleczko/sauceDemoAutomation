@@ -37,11 +37,7 @@ public class TestLoginPage extends CommonConditions{
         logger.info("Error message for shouldReturnErrorMessageWhenLoginCredentialsAreEmpty received: {}",
                 actualErrorMessage);
 
-        assertThat(actualErrorMessage)
-                .withFailMessage("Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'")
-                .isNotNull()
-                .isNotEmpty()
-                .contains(expectedErrorMessage);
+        assertThat(actualErrorMessage).contains(expectedErrorMessage);
 
         logger.info("Test shouldReturnErrorMessageWhenLoginCredentialsAreEmpty completed");
     }
@@ -67,11 +63,7 @@ public class TestLoginPage extends CommonConditions{
         logger.info("Error message for shouldReturnErrorMessageWhenPasswordIsEmpty received: {}",
                 actualErrorMessage);
 
-        assertThat(actualErrorMessage)
-                .withFailMessage("Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'")
-                .isNotNull()
-                .isNotEmpty()
-                .contains(expectedErrorMessage);
+        assertThat(actualErrorMessage).contains(expectedErrorMessage);
 
         logger.info("Test shouldReturnErrorMessageWhenPasswordIsEmpty completed");
     }
@@ -97,11 +89,7 @@ public class TestLoginPage extends CommonConditions{
                 .getTitle();
 
         //then
-        assertThat(actualTitle)
-                .withFailMessage("Expected: '" + expectedTitle +  "' Instead got: '" + actualTitle + "'")
-                .isNotNull()
-                .isNotEmpty()
-                .isEqualTo(expectedTitle);
+        assertThat(actualTitle).isEqualTo(expectedTitle);
 
         logger.info("Test shouldLoginSuccessfullyWhenProvidedWithValidCredentials for username: {}, password: {} completed",
                 user.username(), user.password());
@@ -127,11 +115,7 @@ public class TestLoginPage extends CommonConditions{
         logger.info("Error message for shouldReturnErrorMessageWhenProvidedWithLockeUser received: {}",
                 actualErrorMessage);
 
-        assertThat(actualErrorMessage)
-                .withFailMessage("Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'")
-                .isNotNull()
-                .isNotEmpty()
-                .contains(expectedErrorMessage);
+        assertThat(actualErrorMessage).contains(expectedErrorMessage);
 
         logger.info("Test shouldReturnErrorMessageWhenProvidedWithLockeUser completed");
     }
