@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestLoginPage extends CommonConditions{
 
@@ -38,8 +37,11 @@ public class TestLoginPage extends CommonConditions{
         logger.info("Error message for shouldReturnErrorMessageWhenLoginCredentialsAreEmpty received: {}",
                 actualErrorMessage);
 
-        assertTrue(actualErrorMessage.contains(expectedErrorMessage),
-                "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
+        assertThat(actualErrorMessage)
+                .withFailMessage("Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'")
+                .isNotNull()
+                .isNotEmpty()
+                .contains(expectedErrorMessage);
 
         logger.info("Test shouldReturnErrorMessageWhenLoginCredentialsAreEmpty completed");
     }
@@ -65,8 +67,12 @@ public class TestLoginPage extends CommonConditions{
         logger.info("Error message for shouldReturnErrorMessageWhenPasswordIsEmpty received: {}",
                 actualErrorMessage);
 
-        assertTrue(actualErrorMessage.contains(expectedErrorMessage),
-                "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
+        assertThat(actualErrorMessage)
+                .withFailMessage("Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'")
+                .isNotNull()
+                .isNotEmpty()
+                .contains(expectedErrorMessage);
+
         logger.info("Test shouldReturnErrorMessageWhenPasswordIsEmpty completed");
     }
 
@@ -91,8 +97,12 @@ public class TestLoginPage extends CommonConditions{
                 .getTitle();
 
         //then
-        assertEquals(actualTitle, expectedTitle,
-                "Expected: '" + expectedTitle +  "' Instead got: '" + actualTitle + "'");
+        assertThat(actualTitle)
+                .withFailMessage("Expected: '" + expectedTitle +  "' Instead got: '" + actualTitle + "'")
+                .isNotNull()
+                .isNotEmpty()
+                .isEqualTo(expectedTitle);
+
         logger.info("Test shouldLoginSuccessfullyWhenProvidedWithValidCredentials for username: {}, password: {} completed",
                 user.username(), user.password());
     }
@@ -117,8 +127,12 @@ public class TestLoginPage extends CommonConditions{
         logger.info("Error message for shouldReturnErrorMessageWhenProvidedWithLockeUser received: {}",
                 actualErrorMessage);
 
-        assertTrue(actualErrorMessage.contains(expectedErrorMessage),
-                "Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'");
+        assertThat(actualErrorMessage)
+                .withFailMessage("Expected: '" + expectedErrorMessage +  "' Instead got: '" + actualErrorMessage + "'")
+                .isNotNull()
+                .isNotEmpty()
+                .contains(expectedErrorMessage);
+
         logger.info("Test shouldReturnErrorMessageWhenProvidedWithLockeUser completed");
     }
 
